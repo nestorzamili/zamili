@@ -1,10 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { FileDown, Github, Linkedin, Mail } from 'lucide-react';
-import { Button } from './ui/button';
+import { Github, Linkedin, Mail } from 'lucide-react';
 import { Card, CardContent } from './ui/card';
 import { Separator } from './ui/separator';
+import ContactForm from './ContactForm';
 
 const contactLinks = [
 	{
@@ -55,7 +55,7 @@ export default function Contact() {
 	return (
 		<section
 			id="contact"
-			className="py-24 md:py-32 bg-slate-900 dark:bg-slate-900 light:bg-gray-50"
+			className="py-24 md:py-20 bg-slate-900 dark:bg-slate-900 light:bg-gray-50"
 		>
 			<div className="max-w-6xl mx-auto px-6">
 				<motion.h2
@@ -71,7 +71,7 @@ export default function Contact() {
 					Get In Touch
 				</motion.h2>
 				<motion.p
-					className="text-gray-300 dark:text-gray-300 light:text-gray-600 text-lg mb-16 max-w-3xl"
+					className="text-gray-300 dark:text-gray-300 light:text-gray-600 text-lg mb-10 max-w-3xl"
 					initial={{ opacity: 0 }}
 					whileInView={{ opacity: 1 }}
 					viewport={{ once: true }}
@@ -83,7 +83,6 @@ export default function Contact() {
 				</motion.p>
 
 				<div className="grid md:grid-cols-2 gap-12">
-					{/* Contact Methods */}
 					<motion.div
 						className="space-y-5"
 						variants={containerVariants}
@@ -129,7 +128,6 @@ export default function Contact() {
 						})}
 					</motion.div>
 
-					{/* Download CV */}
 					<motion.div
 						className="flex flex-col justify-center"
 						initial={{ opacity: 0, scale: 0.95 }}
@@ -137,39 +135,21 @@ export default function Contact() {
 						viewport={{ once: true }}
 						transition={{ duration: 0.6, delay: 0.3 }}
 					>
-						<Card className="bg-linear-to-br from-cyan-900/50 to-slate-800 dark:from-cyan-900/50 dark:to-slate-800 light:from-cyan-50 light:to-white border-cyan-600/50 dark:border-cyan-600/50 light:border-cyan-200 shadow-xl dark:shadow-xl light:shadow-lg">
+						<Card className="bg-linear-to-br from-slate-800 to-slate-900 dark:from-slate-800 dark:to-slate-900 light:from-white light:to-gray-50 border-slate-700 dark:border-slate-700 light:border-gray-200 shadow-xl dark:shadow-xl light:shadow-lg">
 							<CardContent className="p-8 md:p-10">
-								<h3 className="text-2xl font-bold text-white dark:text-white light:text-slate-900 mb-4">
-									Want the full picture?
+								<h3 className="text-2xl font-bold text-white dark:text-white light:text-slate-900 mb-6">
+									Send a Message
 								</h3>
-								<p className="text-gray-300 dark:text-gray-300 light:text-gray-600 text-lg mb-8">
-									Download my resume for a complete overview of my experience,
-									skills, and background.
-								</p>
-								<Button
-									asChild
-									size="lg"
-									className="bg-cyan-600 hover:bg-cyan-500 text-white text-lg px-8 py-6 h-auto"
-								>
-									<a
-										href="/CV_Nestorius_Fanelama_Zamili.pdf"
-										download
-										className="flex items-center gap-3"
-									>
-										<FileDown size={24} />
-										Download Resume
-									</a>
-								</Button>
+								<ContactForm />
 							</CardContent>
 						</Card>
 					</motion.div>
 				</div>
 			</div>
 
-			{/* Footer */}
-			<Separator className="max-w-6xl mx-auto mt-24 bg-slate-700 dark:bg-slate-700 light:bg-gray-200" />
+			<Separator className="max-w-6xl mx-auto mt-20 bg-slate-700 dark:bg-slate-700 light:bg-gray-200" />
 			<motion.div
-				className="max-w-6xl mx-auto px-6 pt-10"
+				className="max-w-6xl mx-auto px-6 pt-5"
 				initial={{ opacity: 0 }}
 				whileInView={{ opacity: 1 }}
 				viewport={{ once: true }}

@@ -121,10 +121,10 @@ const techCategories = [
 
 export default function TechStack() {
 	return (
-		<section className="py-24 md:py-32 bg-slate-950 dark:bg-slate-950 light:bg-white">
+		<section className="py-24 md:py-20 bg-slate-950 dark:bg-slate-950 light:bg-white">
 			<div className="max-w-6xl mx-auto px-6">
 				<motion.h2
-					className="text-3xl sm:text-4xl md:text-5xl font-bold text-white dark:text-white light:text-slate-900 mb-16"
+					className="text-3xl sm:text-4xl md:text-5xl font-bold text-white dark:text-white light:text-slate-900 mb-10"
 					initial={{ opacity: 0, x: -20 }}
 					whileInView={{ opacity: 1, x: 0 }}
 					viewport={{ once: true, margin: '-100px' }}

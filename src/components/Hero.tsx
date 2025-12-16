@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail } from 'lucide-react';
+import { Image } from '@unpic/react';
 import { Badge } from './ui/badge';
 
 const containerVariants = {
@@ -50,12 +51,10 @@ const socialLinks = [
 export default function Hero() {
 	return (
 		<section className="min-h-screen flex flex-col justify-center relative overflow-hidden bg-slate-950 dark:bg-slate-950 light:bg-white">
-			{/* Subtle gradient overlay with transparent top to blend header */}
 			<div className="absolute inset-0 z-0 pointer-events-none bg-[linear-gradient(to_br,rgba(0,0,0,0)_0%,rgba(8,145,178,0.15)_20%,rgba(2,6,23,1)_60%)] dark:bg-[linear-gradient(to_br,rgba(0,0,0,0)_0%,rgba(8,145,178,0.15)_20%,rgba(2,6,23,1)_60%)] light:bg-[linear-gradient(to_br,rgba(255,255,255,0)_0%,rgba(217,249,255,0.6)_30%,rgba(255,255,255,1)_70%)]" />
 
-			<div className="relative max-w-6xl mx-auto px-6 py-24 md:py-32">
+			<div className="relative max-w-6xl mx-auto px-6 py-24 md:py-20">
 				<div className="grid md:grid-cols-2 gap-16 items-center">
-					{/* Text Content */}
 					<motion.div
 						className="order-2 md:order-1"
 						variants={containerVariants}
@@ -99,7 +98,6 @@ export default function Hero() {
 							production-first side projects to sharpen system thinking.
 						</motion.p>
 
-						{/* Social Links */}
 						<motion.div
 							variants={itemVariants}
 							className="flex items-center gap-5"
@@ -130,7 +128,6 @@ export default function Hero() {
 						</motion.div>
 					</motion.div>
 
-					{/* Profile Image */}
 					<motion.div
 						className="order-1 md:order-2 flex justify-center"
 						variants={imageVariants}
@@ -138,7 +135,6 @@ export default function Hero() {
 						animate="visible"
 					>
 						<div className="relative">
-							{/* Glow effect */}
 							<motion.div
 								className="absolute -inset-6 bg-cyan-500/30 dark:bg-cyan-500/30 light:bg-cyan-200/50 rounded-full blur-3xl"
 								animate={{
@@ -151,13 +147,19 @@ export default function Hero() {
 									ease: 'easeInOut',
 								}}
 							/>
-							<motion.img
-								src="/profile.png"
-								alt="Nestor Zamili"
-								className="relative w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full object-cover object-[50%_35%] sm:object-[50%_30%] md:object-[50%_25%] border-4 border-cyan-500/50 dark:border-cyan-500/50 light:border-cyan-400 shadow-2xl shadow-cyan-500/20 dark:shadow-cyan-500/20 light:shadow-cyan-200/50"
+							<motion.div
 								whileHover={{ scale: 1.03 }}
 								transition={{ duration: 0.3 }}
-							/>
+							>
+								<Image
+									src="/profile.png"
+									alt="Nestor Zamili"
+									width={320}
+									height={320}
+									priority
+									className="relative w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full object-cover object-[50%_35%] sm:object-[50%_30%] md:object-[50%_25%] border-4 border-cyan-500/50 dark:border-cyan-500/50 light:border-cyan-400 shadow-2xl shadow-cyan-500/20 dark:shadow-cyan-500/20 light:shadow-cyan-200/50"
+								/>
+							</motion.div>
 						</div>
 					</motion.div>
 				</div>

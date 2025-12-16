@@ -60,11 +60,11 @@ export default function Experience() {
 	return (
 		<section
 			id="experience"
-			className="py-24 md:py-32 bg-slate-900 dark:bg-slate-900 light:bg-gray-50"
+			className="py-24 md:py-20 bg-slate-900 dark:bg-slate-900 light:bg-gray-50"
 		>
 			<div className="max-w-6xl mx-auto px-6">
 				<motion.h2
-					className="text-3xl sm:text-4xl md:text-5xl font-bold text-white dark:text-white light:text-slate-900 mb-16"
+					className="text-3xl sm:text-4xl md:text-5xl font-bold text-white dark:text-white light:text-slate-900 mb-10"
 					initial={{ opacity: 0, x: -20 }}
 					whileInView={{ opacity: 1, x: 0 }}
 					viewport={{ once: true, margin: '-100px' }}
@@ -78,7 +78,7 @@ export default function Experience() {
 
 				<div className="relative min-h-250">
 					<motion.div
-						className="absolute left-4 md:left-1/2 top-0 h-full w-1 bg-cyan-600/30 dark:bg-cyan-600/30 light:bg-cyan-300/50 transform md:-translate-x-1/2 rounded-full"
+						className="absolute left-0 md:left-1/2 top-0 h-full w-1 bg-cyan-600/30 dark:bg-cyan-600/30 light:bg-cyan-300/50 transform md:-translate-x-1/2 rounded-full"
 						initial={{ scaleY: 0 }}
 						whileInView={{ scaleY: 1 }}
 						viewport={{ once: true }}
@@ -119,36 +119,42 @@ export default function Experience() {
 
 							return (
 								<motion.div
-									key={exp.title}
-									variants={cardVariants}
-									initial="hidden"
-									whileInView="visible"
-									viewport={{ once: true, margin: '-100px' }}
-									className="relative mb-24 md:mb-0 md:absolute w-full md:w-[calc(50%-4rem)]"
+								key={exp.title}
+								variants={cardVariants}
+								initial="hidden"
+								whileInView="visible"
+								viewport={{ once: true, margin: '-100px' }}
+								className={`relative mb-6 last:mb-0 md:mb-0 md:absolute pl-10 md:pl-0 w-full md:w-[calc(50%-4rem)] ${isLeft ? 'md:left-0 md:right-auto' : 'md:left-auto md:right-0'}`}
+								style={{
+									top: undefined,
+								}}
+								data-desktop-top={topOffset}
+							>
+								<motion.div
+									className={`hidden md:block absolute top-8 ${
+										isLeft
+											? 'left-[calc(100%+1rem)]'
+											: 'right-[calc(100%+1rem)]'
+									} w-12 h-0.5 bg-linear-to-r ${
+										isLeft
+											? 'from-transparent to-cyan-500/50'
+											: 'from-cyan-500/50 to-transparent'
+									} z-10`}
+									initial={{ scaleX: 0 }}
+									whileInView={{ scaleX: 1 }}
+									viewport={{ once: true }}
+									transition={{ delay: 0.4, duration: 0.4 }}
 									style={{
-										top: `${topOffset}px`,
-										left: isLeft ? 0 : 'auto',
-										right: isLeft ? 'auto' : 0,
+										originX: isLeft ? 1 : 0,
 									}}
-								>
-									<motion.div
-										className={`hidden md:block absolute top-8 ${
-											isLeft
-												? 'left-[calc(100%+1rem)]'
-												: 'right-[calc(100%+1rem)]'
-										} w-12 h-0.5 bg-linear-to-r ${
-											isLeft
-												? 'from-transparent to-cyan-500/50'
-												: 'from-cyan-500/50 to-transparent'
-										} z-10`}
-										initial={{ scaleX: 0 }}
-										whileInView={{ scaleX: 1 }}
-										viewport={{ once: true }}
-										transition={{ delay: 0.4, duration: 0.4 }}
-										style={{
-											originX: isLeft ? 1 : 0,
-										}}
-									/>
+								/>
+								<style>{`
+									@media (min-width: 768px) {
+										[data-desktop-top="${topOffset}"][data-desktop-top] {
+											top: ${topOffset}px !important;
+										}
+									}
+								`}</style>
 
 									<motion.div
 										className={`absolute top-8 ${
@@ -175,10 +181,10 @@ export default function Experience() {
 										/>
 									</motion.div>
 
-									<div className="md:hidden absolute left-4 top-8 w-5 h-5 bg-cyan-500 rounded-full transform -translate-x-1/2 -translate-y-1/2 border-4 border-slate-900 z-20 shadow-lg shadow-cyan-500/50" />
-									<div className="md:hidden absolute left-4 top-8 w-12 h-0.5 bg-cyan-500/50" />
+									<div className="md:hidden absolute left-0 top-8 w-5 h-5 bg-cyan-500 rounded-full transform -translate-x-1/2 -translate-y-1/2 border-4 border-slate-900 z-20 shadow-lg shadow-cyan-500/50" />
+									<div className="md:hidden absolute left-2.5 top-8 w-8 h-0.5 bg-cyan-500/50" />
 
-									<div className="ml-16 md:ml-0">
+									<div className="md:ml-0">
 										<Card className="bg-slate-800 dark:bg-slate-800 light:bg-white border-slate-700 dark:border-slate-700 light:border-gray-200 hover:border-cyan-500 dark:hover:border-cyan-500 light:hover:border-cyan-400 transition-all duration-300 shadow-xl dark:shadow-xl light:shadow-lg hover:scale-[1.02]">
 											<CardHeader className="pb-4">
 												<div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">

@@ -52,11 +52,11 @@ export default function About() {
 	return (
 		<section
 			id="about"
-			className="py-24 md:py-32 bg-slate-900 dark:bg-slate-900 light:bg-gray-50"
+			className="py-24 md:py-20 bg-slate-900 dark:bg-slate-900 light:bg-gray-50"
 		>
 			<div className="max-w-6xl mx-auto px-6">
 				<motion.h2
-					className="text-3xl sm:text-4xl md:text-5xl font-bold text-white dark:text-white light:text-slate-900 mb-16"
+					className="text-3xl sm:text-4xl md:text-5xl font-bold text-white dark:text-white light:text-slate-900 mb-10"
 					initial={{ opacity: 0, x: -20 }}
 					whileInView={{ opacity: 1, x: 0 }}
 					viewport={{ once: true, margin: '-100px' }}

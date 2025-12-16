@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card, CardContent, CardHeader } from './ui/card';
+import { Badge } from './ui/badge';
 
 const projects = [
 	{
@@ -46,7 +47,6 @@ const projects = [
 		github: '',
 		live: 'https://prakarsa.id',
 	},
-	// Placeholder for future projects
 	{
 		title: 'Coming Soon',
 		description:
@@ -98,11 +98,11 @@ export default function Projects() {
 	return (
 		<section
 			id="projects"
-			className="py-24 md:py-32 bg-slate-950 dark:bg-slate-950 light:bg-white overflow-hidden"
+			className="py-24 md:py-20 bg-slate-950 dark:bg-slate-950 light:bg-white overflow-hidden"
 		>
 			<div className="max-w-6xl mx-auto px-6">
 				<motion.div
-					className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12"
+					className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10"
 					initial={{ opacity: 0, y: 20 }}
 					whileInView={{ opacity: 1, y: 0 }}
 					viewport={{ once: true }}
@@ -158,12 +158,11 @@ export default function Projects() {
 				</motion.div>
 			</div>
 
-			{/* Horizontal Scroll Container - Full Width */}
 			<div className="relative">
 				<div
 					ref={scrollContainerRef}
 					onScroll={handleScroll}
-					className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-8 px-6 md:px-[calc((100vw-72rem)/2+1.5rem)]"
+					className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide pt-4 pb-8 px-6 md:px-[calc((100vw-72rem)/2+1.5rem)]"
 					style={{
 						scrollbarWidth: 'none',
 						msOverflowStyle: 'none',
@@ -179,7 +178,6 @@ export default function Projects() {
 							className="shrink-0 w-[calc(100vw-3rem)] sm:w-100 md:w-120 snap-center"
 						>
 							{'isPlaceholder' in project && project.isPlaceholder ? (
-								// Placeholder Card
 								<div className="h-full min-h-80 bg-slate-900/50 dark:bg-slate-900/50 light:bg-gray-100 rounded-2xl border-2 border-dashed border-slate-700 dark:border-slate-700 light:border-gray-300 flex flex-col items-center justify-center hover:border-cyan-600/50 transition-colors">
 									<div className="w-16 h-16 rounded-full bg-slate-800/50 flex items-center justify-center mb-4">
 										<Box size={32} className="text-gray-600" />
@@ -192,8 +190,7 @@ export default function Projects() {
 									</p>
 								</div>
 							) : (
-								// Regular Project Card
-								<Card className="h-full bg-linear-to-br from-slate-900 via-slate-900 to-slate-800 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800 light:from-white light:via-gray-50 light:to-gray-100 border-slate-700/50 dark:border-slate-700/50 light:border-gray-200 hover:border-cyan-500/50 transition-all duration-300 group shadow-2xl overflow-hidden rounded-2xl">
+								<Card className="h-full bg-slate-800 dark:bg-slate-800 light:bg-white border-slate-700 dark:border-slate-700 light:border-gray-200 hover:border-cyan-500 dark:hover:border-cyan-500 light:hover:border-cyan-400 transition-all duration-300 group shadow-xl dark:shadow-xl light:shadow-lg overflow-hidden rounded-2xl hover:scale-[1.02]">
 									<CardHeader className="pb-4 pt-6">
 										<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
 											<div className="flex items-center gap-4">
@@ -274,17 +271,17 @@ export default function Projects() {
 											</div>
 										)}
 
-										{/* Tech Stack Pills */}
 										{project.tech.length > 0 && (
 											<div className="pt-4 border-t border-slate-700/50 dark:border-slate-700/50 light:border-gray-200">
 												<div className="flex flex-wrap gap-2">
 													{project.tech.map((t) => (
-														<span
+														<Badge
 															key={t}
-															className="px-3 py-1.5 text-sm font-medium bg-slate-800 dark:bg-slate-800 light:bg-gray-200 text-gray-300 dark:text-gray-300 light:text-gray-700 rounded-lg border border-slate-700 dark:border-slate-700 light:border-gray-300 hover:border-cyan-500/30 transition-colors"
+															variant="secondary"
+															className="bg-slate-700 dark:bg-slate-700 light:bg-gray-200 text-gray-300 dark:text-gray-300 light:text-gray-700 border-slate-600 dark:border-slate-600 light:border-gray-300 hover:bg-slate-600 dark:hover:bg-slate-600 light:hover:bg-gray-300"
 														>
 															{t}
-														</span>
+														</Badge>
 													))}
 												</div>
 											</div>
@@ -296,21 +293,20 @@ export default function Projects() {
 					))}
 				</div>
 
-				{/* Pagination Dots */}
 				{projects.filter((p) => !('isPlaceholder' in p)).length > 1 && (
 					<div className="flex justify-center gap-2 mt-6">
-					{projects.map((project, index) => (
-						<button
-							type="button"
-							key={project.title}
-							onClick={() => scrollToIndex(index)}
-							className={`h-2 rounded-full transition-all duration-300 ${
-								activeIndex === index
-									? 'w-8 bg-cyan-500'
-									: 'w-2 bg-slate-700 hover:bg-slate-600'
-							}`}
-							aria-label={`Go to project ${index + 1}`}
-						/>
+						{projects.map((project, index) => (
+							<button
+								type="button"
+								key={project.title}
+								onClick={() => scrollToIndex(index)}
+								className={`h-2 rounded-full transition-all duration-300 ${
+									activeIndex === index
+										? 'w-8 bg-cyan-500'
+										: 'w-2 bg-slate-700 hover:bg-slate-600'
+								}`}
+								aria-label={`Go to project ${index + 1}`}
+							/>
 						))}
 					</div>
 				)}

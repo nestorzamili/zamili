@@ -41,22 +41,17 @@ export default function Header() {
 
 			setIsHeroSection(isInHero);
 
-			// Always show in hero section
 			if (isInHero) {
 				setVisible(true);
 				lastScrollY.current = currentScrollY;
 				return;
 			}
 
-			// Show header when scrolling
 			setVisible(true);
 
-			// Clear previous timeout
 			if (scrollTimeout.current) {
 				clearTimeout(scrollTimeout.current);
 			}
-
-			// Hide header after 1.5s of no scrolling (only when not in hero)
 			scrollTimeout.current = setTimeout(() => {
 				if (!isInHero) {
 					setVisible(false);
@@ -65,7 +60,6 @@ export default function Header() {
 
 			lastScrollY.current = currentScrollY;
 
-			// Update scroll progress bar
 			const doc = document.documentElement;
 			const scrollTop = doc.scrollTop || document.body.scrollTop;
 			const scrollHeight = doc.scrollHeight - doc.clientHeight;
@@ -75,7 +69,6 @@ export default function Header() {
 					: 0;
 			setProgress(pct);
 
-			// Detect active section for nav highlighting
 			const sections = navLinks.map((l) => l.href);
 			let current: string | null = null;
 			for (const href of sections) {
@@ -187,11 +180,12 @@ export default function Header() {
 							>
 								<Button
 									asChild
-									className="bg-cyan-600 hover:bg-cyan-500 text-white font-medium text-base px-5 py-2.5 h-auto"
+									className="bg-cyan-700 hover:bg-cyan-600 text-white font-medium text-base px-5 py-2.5 h-auto"
 								>
 									<a
 										href="/CV_Nestorius_Fanelama_Zamili.pdf"
-										download
+										target="_blank"
+										rel="noopener noreferrer"
 										className="flex items-center gap-2"
 									>
 										<FileDown size={20} />
@@ -201,7 +195,6 @@ export default function Header() {
 							</motion.div>
 						</div>
 
-						{/* Mobile Menu Button */}
 						<div className="flex items-center gap-3 md:hidden">
 							<ThemeToggle />
 							<motion.button
@@ -216,7 +209,6 @@ export default function Header() {
 						</div>
 					</div>
 
-					{/* Mobile Navigation */}
 					<AnimatePresence>
 						{isOpen && (
 							<motion.div
@@ -242,7 +234,7 @@ export default function Header() {
 									))}
 									<Button
 										asChild
-										className="bg-cyan-600 hover:bg-cyan-500 text-white font-medium text-base w-fit px-5 py-2.5 h-auto"
+										className="bg-cyan-700 hover:bg-cyan-600 text-white font-medium text-base w-fit px-5 py-2.5 h-auto"
 									>
 										<a
 											href="/CV_Nestorius_Fanelama_Zamili.pdf"

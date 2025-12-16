@@ -1,0 +1,47 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Build output (will be created in container)
+.output
+.nitro
+dist
+
+# Development files
+.git
+.gitignore
+.vscode
+.idea
+
+# Test files
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+__tests__
+coverage
+
+# Documentation
+README.md
+docs
+
+# Environment files (handle secrets via Docker secrets or env vars)
+.env
+.env.*
+!.env.example
+
+# Misc
+.DS_Store
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# CI/CD
+.github
+.gitlab-ci.yml
+Jenkinsfile
+
+# Docker
+Dockerfile*
+docker-compose*
+.dockerignore

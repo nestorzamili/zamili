@@ -1,22 +1,27 @@
 import { createFileRoute } from '@tanstack/react-router';
-import About from '../components/About';
-import Contact from '../components/Contact';
-import Experience from '../components/Experience';
+import { lazy, Suspense } from 'react';
 import Hero from '../components/Hero';
-import Projects from '../components/Projects';
-import TechStack from '../components/TechStack';
+
+// Lazy load below-fold components for better FCP/LCP
+const About = lazy(() => import('../components/About'));
+const TechStack = lazy(() => import('../components/TechStack'));
+const Experience = lazy(() => import('../components/Experience'));
+const Projects = lazy(() => import('../components/Projects'));
+const Contact = lazy(() => import('../components/Contact'));
 
 export const Route = createFileRoute('/')({ component: App });
 
 function App() {
 	return (
-		<div className="pt-16">
+		<main className="pt-16">
 			<Hero />
-			<About />
-			<TechStack />
-			<Experience />
-			<Projects />
-			<Contact />
-		</div>
+			<Suspense fallback={<div className="min-h-[50vh]" />}>
+				<About />
+				<TechStack />
+				<Experience />
+				<Projects />
+				<Contact />
+			</Suspense>
+		</main>
 	);
 }
