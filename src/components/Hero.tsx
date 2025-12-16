@@ -86,9 +86,17 @@ export default function Hero() {
 							variants={itemVariants}
 							className="text-gray-300 dark:text-gray-300 light:text-gray-600 text-base sm:text-lg leading-relaxed mb-10 max-w-xl"
 						>
-							I build and operate deployment pipelines, manage Kubernetes
-							clusters, and troubleshoot production systems. My focus is on
-							making deployments reliable and operations observable.
+							I work at the intersection of applications and production systems.
+							My focus is designing reliable deployment pipelines, operating
+							Kubernetes workloads, and troubleshooting real production issues.
+						</motion.p>
+
+						<motion.p
+							variants={itemVariants}
+							className="text-gray-300 dark:text-gray-300 light:text-gray-600 text-base sm:text-lg leading-relaxed mb-10 max-w-xl"
+						>
+							Currently working in a deployment-focused DevOps team. Building
+							production-first side projects to sharpen system thinking.
 						</motion.p>
 
 						{/* Social Links */}

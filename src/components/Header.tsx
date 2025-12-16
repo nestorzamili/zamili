@@ -107,7 +107,6 @@ export default function Header() {
 		}
 	};
 
-	// Show on hover when hidden
 	const handleMouseEnter = () => {
 		if (!isHeroSection) {
 			setVisible(true);
@@ -147,20 +146,18 @@ export default function Header() {
 			>
 				<nav className="max-w-6xl mx-auto px-6 py-5">
 					<div className="flex items-center justify-between">
-						{/* Logo */}
 						<motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
 							<Link
 								to="/"
-								className="text-2xl font-bold text-white dark:text-white light:text-slate-900 hover:text-cyan-400 dark:hover:text-cyan-400 light:hover:text-cyan-600 transition-colors"
+								className="text-2xl font-bold flex items-center gap-1 text-white dark:text-white light:text-slate-900 hover:text-cyan-400 transition-colors"
 							>
-								zamili
+								<span>Nestor</span>
 								<span className="text-cyan-400 dark:text-cyan-400 light:text-cyan-600">
-									.dev
+									Zamili
 								</span>
 							</Link>
 						</motion.div>
 
-						{/* Desktop Navigation */}
 						<div className="hidden md:flex items-center gap-8">
 							{navLinks.map((link, index) => (
 								<motion.button

@@ -1,162 +1,319 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ExternalLink, Github } from 'lucide-react';
+import { useRef, useState } from 'react';
+import {
+	ExternalLink,
+	Github,
+	Box,
+	MessageSquare,
+	GitBranch,
+	Container,
+	ChevronLeft,
+	ChevronRight,
+} from 'lucide-react';
 import { Button } from './ui/button';
 import { Card, CardContent, CardHeader } from './ui/card';
 
 const projects = [
 	{
-		title: 'Portfolio Website',
+		title: 'Prakarsa',
 		description:
-			'This site. Built with TanStack Start and Tailwind CSS. Focused on clean design and good performance.',
-		tech: ['TanStack Start', 'React', 'TypeScript', 'Tailwind CSS'],
-		github: 'https://github.com/nestorzamili',
-		live: 'https://zamili.dev',
+			'A production-oriented side project focused on delivery and runtime behavior. Built to practice real deployment workflows and operational patterns.',
+		highlights: [
+			{
+				icon: Box,
+				label: 'Frontend',
+				detail: 'Next.js with TypeScript',
+			},
+			{
+				icon: MessageSquare,
+				label: 'Backend',
+				detail: 'Golang chat service with Redis',
+			},
+			{
+				icon: GitBranch,
+				label: 'CI/CD',
+				detail: 'GitHub Actions automated builds',
+			},
+			{
+				icon: Container,
+				label: 'Infrastructure',
+				detail: 'Docker containers, production-like ops',
+			},
+		],
+		tech: ['Next.js', 'Golang', 'Redis', 'Docker', 'GitHub Actions'],
+		github: '',
+		live: 'https://prakarsa.id',
+	},
+	// Placeholder for future projects
+	{
+		title: 'Coming Soon',
+		description:
+			'More production-focused projects will be published here. Stay tuned for additional engineering work.',
+		highlights: [],
+		tech: [],
+		github: '',
+		live: '',
+		isPlaceholder: true,
 	},
 ];
 
-const containerVariants = {
-	hidden: { opacity: 0 },
-	visible: {
-		opacity: 1,
-		transition: {
-			staggerChildren: 0.15,
-		},
-	},
-};
-
-const cardVariants = {
-	hidden: { opacity: 0, y: 30, scale: 0.95 },
-	visible: {
-		opacity: 1,
-		y: 0,
-		scale: 1,
-		transition: {
-			duration: 0.5,
-		},
-	},
-};
-
 export default function Projects() {
+	const scrollContainerRef = useRef<HTMLDivElement>(null);
+	const [activeIndex, setActiveIndex] = useState(0);
+
+	const scrollToIndex = (index: number) => {
+		if (scrollContainerRef.current) {
+			const cardWidth = scrollContainerRef.current.offsetWidth;
+			scrollContainerRef.current.scrollTo({
+				left: index * cardWidth,
+				behavior: 'smooth',
+			});
+			setActiveIndex(index);
+		}
+	};
+
+	const handleScroll = () => {
+		if (scrollContainerRef.current) {
+			const scrollLeft = scrollContainerRef.current.scrollLeft;
+			const cardWidth = scrollContainerRef.current.offsetWidth;
+			const newIndex = Math.round(scrollLeft / cardWidth);
+			setActiveIndex(newIndex);
+		}
+	};
+
+	const scrollPrev = () => {
+		if (activeIndex > 0) {
+			scrollToIndex(activeIndex - 1);
+		}
+	};
+
+	const scrollNext = () => {
+		if (activeIndex < projects.length - 1) {
+			scrollToIndex(activeIndex + 1);
+		}
+	};
+
 	return (
 		<section
 			id="projects"
-			className="py-24 md:py-32 bg-slate-950 dark:bg-slate-950 light:bg-white"
+			className="py-24 md:py-32 bg-slate-950 dark:bg-slate-950 light:bg-white overflow-hidden"
 		>
 			<div className="max-w-6xl mx-auto px-6">
-				<motion.h2
-					className="text-3xl sm:text-4xl md:text-5xl font-bold text-white dark:text-white light:text-slate-900 mb-6"
-					initial={{ opacity: 0, x: -20 }}
-					whileInView={{ opacity: 1, x: 0 }}
-					viewport={{ once: true, margin: '-100px' }}
-					transition={{ duration: 0.6 }}
-				>
-					<span className="text-cyan-400 dark:text-cyan-400 light:text-cyan-600">
-						#
-					</span>{' '}
-					Projects
-				</motion.h2>
-				<motion.p
-					className="text-gray-300 dark:text-gray-300 light:text-gray-600 text-lg mb-16 max-w-3xl"
-					initial={{ opacity: 0 }}
-					whileInView={{ opacity: 1 }}
-					viewport={{ once: true }}
-					transition={{ delay: 0.2, duration: 0.5 }}
-				>
-					A selection of projects I've built. These focus on practical
-					deployability and real-world production patterns rather than flashy
-					demos.
-				</motion.p>
-
 				<motion.div
-					className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-					variants={containerVariants}
-					initial="hidden"
-					whileInView="visible"
-					viewport={{ once: true, margin: '-50px' }}
+					className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12"
+					initial={{ opacity: 0, y: 20 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true }}
+					transition={{ duration: 0.5 }}
 				>
-					{projects.map((project) => (
+					<div>
+						<motion.h2
+							className="text-3xl sm:text-4xl md:text-5xl font-bold text-white dark:text-white light:text-slate-900 mb-4"
+							initial={{ opacity: 0, x: -20 }}
+							whileInView={{ opacity: 1, x: 0 }}
+							viewport={{ once: true, margin: '-100px' }}
+							transition={{ duration: 0.6 }}
+						>
+							<span className="text-cyan-400 dark:text-cyan-400 light:text-cyan-600">
+								#
+							</span>{' '}
+							Projects
+						</motion.h2>
+						<motion.p
+							className="text-gray-300 dark:text-gray-300 light:text-gray-600 text-lg max-w-2xl"
+							initial={{ opacity: 0 }}
+							whileInView={{ opacity: 1 }}
+							viewport={{ once: true }}
+							transition={{ delay: 0.2, duration: 0.5 }}
+						>
+							Projects focused on practical deployability and real-world
+							production patterns.
+						</motion.p>
+					</div>
+
+					{projects.filter((p) => !('isPlaceholder' in p)).length > 1 && (
+						<div className="flex items-center gap-3">
+							<Button
+								variant="outline"
+								size="icon"
+								onClick={scrollPrev}
+								disabled={activeIndex === 0}
+								className="h-12 w-12 rounded-full border-slate-700 dark:border-slate-700 light:border-gray-300 text-gray-400 hover:text-white hover:border-cyan-500 hover:bg-cyan-500/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+							>
+								<ChevronLeft size={24} />
+							</Button>
+							<Button
+								variant="outline"
+								size="icon"
+								onClick={scrollNext}
+								disabled={activeIndex === projects.length - 1}
+								className="h-12 w-12 rounded-full border-slate-700 dark:border-slate-700 light:border-gray-300 text-gray-400 hover:text-white hover:border-cyan-500 hover:bg-cyan-500/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+							>
+								<ChevronRight size={24} />
+							</Button>
+						</div>
+					)}
+				</motion.div>
+			</div>
+
+			{/* Horizontal Scroll Container - Full Width */}
+			<div className="relative">
+				<div
+					ref={scrollContainerRef}
+					onScroll={handleScroll}
+					className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-8 px-6 md:px-[calc((100vw-72rem)/2+1.5rem)]"
+					style={{
+						scrollbarWidth: 'none',
+						msOverflowStyle: 'none',
+					}}
+				>
+					{projects.map((project, index) => (
 						<motion.div
 							key={project.title}
-							variants={cardVariants}
-							whileHover={{ y: -8 }}
+							initial={{ opacity: 0, scale: 0.9 }}
+							whileInView={{ opacity: 1, scale: 1 }}
+							viewport={{ once: true }}
+							transition={{ delay: index * 0.1, duration: 0.5 }}
+							className="shrink-0 w-[calc(100vw-3rem)] sm:w-100 md:w-120 snap-center"
 						>
-							<Card className="h-full bg-slate-900 dark:bg-slate-900 light:bg-gray-50 border-slate-800 dark:border-slate-800 light:border-gray-200 hover:border-cyan-500 dark:hover:border-cyan-500 light:hover:border-cyan-400 transition-all duration-300 group shadow-xl dark:shadow-xl light:shadow-lg">
-								<CardHeader className="pb-4">
-									<div className="flex items-start justify-between">
-										<h3 className="text-xl md:text-2xl font-bold text-white dark:text-white light:text-slate-900 group-hover:text-cyan-400 dark:group-hover:text-cyan-400 light:group-hover:text-cyan-600 transition-colors">
-											{project.title}
-										</h3>
-										<div className="flex items-center gap-2">
-											{project.github && (
-												<Button
-													variant="ghost"
-													size="icon"
-													asChild
-													className="h-10 w-10 text-gray-400 dark:text-gray-400 light:text-gray-500 hover:text-white dark:hover:text-white light:hover:text-cyan-600 hover:bg-slate-800 dark:hover:bg-slate-800 light:hover:bg-gray-200"
-												>
-													<a
-														href={project.github}
-														target="_blank"
-														rel="noopener noreferrer"
-														aria-label="GitHub repository"
-													>
-														<Github size={22} />
-													</a>
-												</Button>
-											)}
-											{project.live && (
-												<Button
-													variant="ghost"
-													size="icon"
-													asChild
-													className="h-10 w-10 text-gray-400 dark:text-gray-400 light:text-gray-500 hover:text-white dark:hover:text-white light:hover:text-cyan-600 hover:bg-slate-800 dark:hover:bg-slate-800 light:hover:bg-gray-200"
-												>
-													<a
-														href={project.live}
-														target="_blank"
-														rel="noopener noreferrer"
-														aria-label="Live site"
-													>
-														<ExternalLink size={22} />
-													</a>
-												</Button>
-											)}
-										</div>
+							{'isPlaceholder' in project && project.isPlaceholder ? (
+								// Placeholder Card
+								<div className="h-full min-h-80 bg-slate-900/50 dark:bg-slate-900/50 light:bg-gray-100 rounded-2xl border-2 border-dashed border-slate-700 dark:border-slate-700 light:border-gray-300 flex flex-col items-center justify-center hover:border-cyan-600/50 transition-colors">
+									<div className="w-16 h-16 rounded-full bg-slate-800/50 flex items-center justify-center mb-4">
+										<Box size={32} className="text-gray-600" />
 									</div>
-								</CardHeader>
-
-								<CardContent>
-									<p className="text-gray-300 dark:text-gray-300 light:text-gray-600 text-base mb-6 leading-relaxed">
+									<h3 className="text-xl font-semibold text-gray-500 mb-2">
+										{project.title}
+									</h3>
+									<p className="text-gray-500 text-center max-w-md px-6">
 										{project.description}
 									</p>
+								</div>
+							) : (
+								// Regular Project Card
+								<Card className="h-full bg-linear-to-br from-slate-900 via-slate-900 to-slate-800 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800 light:from-white light:via-gray-50 light:to-gray-100 border-slate-700/50 dark:border-slate-700/50 light:border-gray-200 hover:border-cyan-500/50 transition-all duration-300 group shadow-2xl overflow-hidden rounded-2xl">
+									<CardHeader className="pb-4 pt-6">
+										<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+											<div className="flex items-center gap-4">
+												<h3 className="text-2xl md:text-3xl font-bold text-white dark:text-white light:text-slate-900 group-hover:text-cyan-400 transition-colors">
+													{project.title}
+												</h3>
+												<span className="px-3 py-1 text-xs font-semibold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 dark:text-cyan-400 light:text-cyan-600 rounded-full border border-cyan-500/20">
+													Production
+												</span>
+											</div>
+											<div className="flex items-center gap-2">
+												{project.github && (
+													<Button
+														variant="ghost"
+														size="icon"
+														asChild
+														className="h-10 w-10 text-gray-400 hover:text-white hover:bg-slate-800/50"
+													>
+														<a
+															href={project.github}
+															target="_blank"
+															rel="noopener noreferrer"
+															aria-label="GitHub repository"
+														>
+															<Github size={22} />
+														</a>
+													</Button>
+												)}
+												{project.live && (
+													<Button
+														variant="outline"
+														asChild
+														className="gap-2 border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-500/50"
+													>
+														<a
+															href={project.live}
+															target="_blank"
+															rel="noopener noreferrer"
+															aria-label="Live site"
+														>
+															<ExternalLink size={16} />
+															Visit Site
+														</a>
+													</Button>
+												)}
+											</div>
+										</div>
+									</CardHeader>
 
-									<div className="flex flex-wrap gap-2">
-										{project.tech.map((t) => (
-											<span
-												key={t}
-												className="px-3 py-1.5 text-sm font-medium bg-slate-800 dark:bg-slate-800 light:bg-gray-200 text-gray-300 dark:text-gray-300 light:text-gray-700 rounded-lg"
-											>
-												{t}
-											</span>
-										))}
-									</div>
-								</CardContent>
-							</Card>
+									<CardContent className="space-y-6">
+										<p className="text-gray-300 dark:text-gray-300 light:text-gray-600 text-base md:text-lg leading-relaxed">
+											{project.description}
+										</p>
+
+										{project.highlights.length > 0 && (
+											<div className="grid grid-cols-2 gap-3">
+												{project.highlights.map((highlight) => (
+													<div
+														key={highlight.label}
+														className="flex items-start gap-2 p-2.5 rounded-lg bg-slate-800/50 dark:bg-slate-800/50 light:bg-white border border-slate-700/50 dark:border-slate-700/50 light:border-gray-200 hover:border-cyan-500/30 transition-colors"
+													>
+														<div className="shrink-0 w-7 h-7 rounded-md bg-linear-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center">
+															<highlight.icon
+																size={14}
+																className="text-cyan-400 dark:text-cyan-400 light:text-cyan-600"
+															/>
+														</div>
+														<div className="min-w-0">
+															<h4 className="text-xs font-semibold text-gray-200 dark:text-gray-200 light:text-slate-800">
+																{highlight.label}
+															</h4>
+															<p className="text-xs text-gray-400 dark:text-gray-400 light:text-gray-500 leading-tight">
+																{highlight.detail}
+															</p>
+														</div>
+													</div>
+												))}
+											</div>
+										)}
+
+										{/* Tech Stack Pills */}
+										{project.tech.length > 0 && (
+											<div className="pt-4 border-t border-slate-700/50 dark:border-slate-700/50 light:border-gray-200">
+												<div className="flex flex-wrap gap-2">
+													{project.tech.map((t) => (
+														<span
+															key={t}
+															className="px-3 py-1.5 text-sm font-medium bg-slate-800 dark:bg-slate-800 light:bg-gray-200 text-gray-300 dark:text-gray-300 light:text-gray-700 rounded-lg border border-slate-700 dark:border-slate-700 light:border-gray-300 hover:border-cyan-500/30 transition-colors"
+														>
+															{t}
+														</span>
+													))}
+												</div>
+											</div>
+										)}
+									</CardContent>
+								</Card>
+							)}
 						</motion.div>
 					))}
+				</div>
 
-					{/* Placeholder for more projects */}
-					<motion.div
-						variants={cardVariants}
-						className="bg-slate-900/50 dark:bg-slate-900/50 light:bg-gray-100 rounded-xl border-2 border-dashed border-slate-700 dark:border-slate-700 light:border-gray-300 flex items-center justify-center min-h-64 hover:border-cyan-600/50 dark:hover:border-cyan-600/50 light:hover:border-cyan-400 transition-colors"
-					>
-						<p className="text-gray-500 dark:text-gray-500 light:text-gray-400 text-lg text-center px-6">
-							More projects coming soon...
-						</p>
-					</motion.div>
-				</motion.div>
+				{/* Pagination Dots */}
+				{projects.filter((p) => !('isPlaceholder' in p)).length > 1 && (
+					<div className="flex justify-center gap-2 mt-6">
+					{projects.map((project, index) => (
+						<button
+							type="button"
+							key={project.title}
+							onClick={() => scrollToIndex(index)}
+							className={`h-2 rounded-full transition-all duration-300 ${
+								activeIndex === index
+									? 'w-8 bg-cyan-500'
+									: 'w-2 bg-slate-700 hover:bg-slate-600'
+							}`}
+							aria-label={`Go to project ${index + 1}`}
+						/>
+						))}
+					</div>
+				)}
 			</div>
 		</section>
 	);

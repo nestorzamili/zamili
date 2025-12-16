@@ -27,24 +27,24 @@ const itemVariants = {
 
 const focusAreas = [
 	{
-		title: 'Deployment Pipelines',
+		title: 'Deployment & Delivery',
 		description:
-			'Designing CI/CD workflows that are reproducible, observable, and fail gracefully. Jenkins, GitOps, Helm charts.',
+			'Designing CI/CD pipelines that are reproducible, observable, and safe to fail. Jenkins, Helm, and Git-based workflows.',
 	},
 	{
 		title: 'Kubernetes Operations',
 		description:
-			'Running and debugging workloads on K8s clusters—understanding pod lifecycles, resource limits, and cluster networking.',
+			'Operating and debugging workloads on Kubernetes clusters—understanding pod lifecycles, resource limits, and common failure patterns.',
 	},
 	{
 		title: 'Production Troubleshooting',
 		description:
-			'Diagnosing issues in live environments. Reading logs, tracing requests, understanding failure modes.',
+			'Diagnosing issues in live environments through logs, metrics, and system behavior.',
 	},
 	{
-		title: 'Fullstack Development',
+		title: 'Application Engineering',
 		description:
-			'Building applications with React/TypeScript, always thinking about how they run in production.',
+			'Building applications with a production-first mindset, thinking about configuration, deployment, and runtime behavior early.',
 	},
 ];
 
@@ -83,29 +83,30 @@ export default function About() {
 
 						<div className="space-y-6 text-gray-300 dark:text-gray-300 light:text-gray-600 text-lg leading-relaxed">
 							<p>
-								I started in{' '}
-								<span className="text-white dark:text-white light:text-slate-900 font-medium">
+								I started my career in{' '}
+								<span className="font-medium text-white dark:text-white light:text-slate-900">
 									production operations
 								</span>
-								—troubleshooting services in Kubernetes and Docker environments,
-								patching databases, debugging service-level issues, and building
-								small automation scripts.
+								—debugging live services, patching databases, and handling
+								incidents in Docker and Kubernetes environments.
 							</p>
 
 							<p>
-								Currently, I work in a{' '}
-								<span className="text-white dark:text-white light:text-slate-900 font-medium">
-									DevOps / deployment-focused team
-								</span>{' '}
-								where I:
+								Today, I work in a{' '}
+								<span className="font-medium text-white dark:text-white light:text-slate-900">
+									deployment-focused DevOps team
+								</span>
+								, where I’m responsible for delivering applications into
+								production and keeping systems stable, observable, and
+								recoverable.
 							</p>
 
 							<ul className="space-y-3 ml-4">
 								{[
-									'Build and maintain CI/CD pipelines using Jenkins and Bitbucket',
-									'Deploy applications to Kubernetes clusters using Helm',
+									'Design and operate CI/CD pipelines using Jenkins and Bitbucket',
+									'Deliver applications to Kubernetes clusters using Helm',
 									'Operate and troubleshoot on-prem Kubernetes infrastructure',
-									'Manage GCE VM-based deployments',
+									'Manage and maintain VM-based deployments on GCE',
 								].map((item, index) => (
 									<motion.li
 										key={item}
@@ -124,17 +125,17 @@ export default function About() {
 							</ul>
 
 							<p>
-								On the side, I build fullstack applications with a focus on
-								<span className="text-white dark:text-white light:text-slate-900 font-medium">
-									{' '}
-									deployability
-								</span>
-								, runtime behavior, and learning from production failures.
+								Outside of work, I build{' '}
+								<span className="font-medium text-white dark:text-white light:text-slate-900">
+									production-oriented applications
+								</span>{' '}
+								to better understand deployment trade-offs, runtime behavior,
+								and failure modes in real environments.
 							</p>
 						</div>
 					</motion.div>
 
-					{/* What I Do */}
+					{/* What I Focus On */}
 					<div className="space-y-8">
 						<motion.h3
 							className="text-2xl font-semibold text-white dark:text-white light:text-slate-900"
@@ -153,12 +154,8 @@ export default function About() {
 							whileInView="visible"
 							viewport={{ once: true, margin: '-50px' }}
 						>
-							{focusAreas.map((area, index) => (
-								<motion.div
-									key={area.title}
-									variants={itemVariants}
-									custom={index}
-								>
+							{focusAreas.map((area) => (
+								<motion.div key={area.title} variants={itemVariants}>
 									<Card className="bg-slate-800 dark:bg-slate-800 light:bg-white border-slate-700 dark:border-slate-700 light:border-gray-200 hover:border-cyan-500 dark:hover:border-cyan-500 light:hover:border-cyan-400 transition-all duration-300 group shadow-none light:shadow-md">
 										<CardContent className="p-6">
 											<h4 className="text-cyan-400 dark:text-cyan-400 light:text-cyan-600 text-lg font-semibold mb-3 group-hover:text-cyan-300 dark:group-hover:text-cyan-300 light:group-hover:text-cyan-500 transition-colors">

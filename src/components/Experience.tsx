@@ -10,7 +10,7 @@ const experiences = [
 		period: 'Current',
 		type: 'Professional',
 		description:
-			'Building and maintaining deployment infrastructure for enterprise applications.',
+			'Responsible for delivering and operating enterprise applications in production environments.',
 		responsibilities: [
 			'Design and maintain CI/CD pipelines using Jenkins and Bitbucket',
 			'Deploy and manage applications on Kubernetes clusters using Helm',
@@ -153,9 +153,9 @@ export default function Experience() {
 									<motion.div
 										className={`absolute top-8 ${
 											isLeft
-												? 'left-[calc(100%+3.5rem)] md:left-[calc(100%+3.5rem)]'
-												: 'right-[calc(100%+3.5rem)] md:right-[calc(100%+3.5rem)]'
-										} w-5 h-5 bg-cyan-500 rounded-full transform -translate-y-1/2 border-4 border-slate-900 dark:border-slate-900 light:border-gray-50 z-20 shadow-lg shadow-cyan-500/50`}
+												? 'left-[calc(100%+4rem)] -translate-x-1/2'
+												: 'right-[calc(100%+4rem)] translate-x-1/2'
+										} hidden md:block w-5 h-5 bg-cyan-500 rounded-full transform -translate-y-1/2 border-4 border-slate-900 dark:border-slate-900 light:border-gray-50 z-20 shadow-lg shadow-cyan-500/50`}
 										initial={{ scale: 0 }}
 										whileInView={{ scale: 1 }}
 										viewport={{ once: true }}
