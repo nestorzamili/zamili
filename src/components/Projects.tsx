@@ -39,10 +39,10 @@ const projects = [
 			{
 				icon: Container,
 				label: 'Infrastructure',
-				detail: 'Docker containers, production-like ops',
+				detail: 'Kubernetes, production-like ops',
 			},
 		],
-		tech: ['Next.js', 'Golang', 'Redis', 'Docker', 'GitHub Actions'],
+		tech: ['Next.js', 'Golang', 'Redis', 'Kubernetes', 'GitHub Actions'],
 		github: '',
 		live: 'https://prakarsa.id',
 	},
