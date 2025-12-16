@@ -24,5 +24,5 @@ ENV PORT=3443
 USER zamili
 EXPOSE 3443
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:3443/ || exit 1
+    CMD curl -f http://localhost:3443/api/health || exit 1
 CMD ["node", ".output/server/index.mjs"]
