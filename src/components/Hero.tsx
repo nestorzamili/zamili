@@ -1,8 +1,8 @@
 'use client';
 
+import { Image } from '@unpic/react';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail } from 'lucide-react';
-import { Image } from '@unpic/react';
 import { Badge } from './ui/badge';
 
 const containerVariants = {

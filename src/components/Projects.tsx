@@ -1,20 +1,20 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useRef, useState } from 'react';
 import {
-	ExternalLink,
-	Github,
 	Box,
-	MessageSquare,
-	GitBranch,
-	Container,
 	ChevronLeft,
 	ChevronRight,
+	Container,
+	ExternalLink,
+	GitBranch,
+	Github,
+	MessageSquare,
 } from 'lucide-react';
+import { useRef, useState } from 'react';
+import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import { Card, CardContent, CardHeader } from './ui/card';
-import { Badge } from './ui/badge';
 
 const projects = [
 	{

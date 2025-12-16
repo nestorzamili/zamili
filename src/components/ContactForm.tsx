@@ -1,10 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Loader2, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { AlertCircle, CheckCircle, Loader2, Send } from 'lucide-react';
 import { useState } from 'react';
-import { Button } from './ui/button';
 import { sendContactEmail } from '../utils/contact.server';
+import { Button } from './ui/button';
 
 interface FormState {
 	name: string;

@@ -2,9 +2,9 @@
 
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail } from 'lucide-react';
+import ContactForm from './ContactForm';
 import { Card, CardContent } from './ui/card';
 import { Separator } from './ui/separator';
-import ContactForm from './ContactForm';
 
 const contactLinks = [
 	{

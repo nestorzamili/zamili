@@ -119,36 +119,36 @@ export default function Experience() {
 
 							return (
 								<motion.div
-								key={exp.title}
-								variants={cardVariants}
-								initial="hidden"
-								whileInView="visible"
-								viewport={{ once: true, margin: '-100px' }}
-								className={`relative mb-6 last:mb-0 md:mb-0 md:absolute pl-10 md:pl-0 w-full md:w-[calc(50%-4rem)] ${isLeft ? 'md:left-0 md:right-auto' : 'md:left-auto md:right-0'}`}
-								style={{
-									top: undefined,
-								}}
-								data-desktop-top={topOffset}
-							>
-								<motion.div
-									className={`hidden md:block absolute top-8 ${
-										isLeft
-											? 'left-[calc(100%+1rem)]'
-											: 'right-[calc(100%+1rem)]'
-									} w-12 h-0.5 bg-linear-to-r ${
-										isLeft
-											? 'from-transparent to-cyan-500/50'
-											: 'from-cyan-500/50 to-transparent'
-									} z-10`}
-									initial={{ scaleX: 0 }}
-									whileInView={{ scaleX: 1 }}
-									viewport={{ once: true }}
-									transition={{ delay: 0.4, duration: 0.4 }}
+									key={exp.title}
+									variants={cardVariants}
+									initial="hidden"
+									whileInView="visible"
+									viewport={{ once: true, margin: '-100px' }}
+									className={`relative mb-6 last:mb-0 md:mb-0 md:absolute pl-10 md:pl-0 w-full md:w-[calc(50%-4rem)] ${isLeft ? 'md:left-0 md:right-auto' : 'md:left-auto md:right-0'}`}
 									style={{
-										originX: isLeft ? 1 : 0,
+										top: undefined,
 									}}
-								/>
-								<style>{`
+									data-desktop-top={topOffset}
+								>
+									<motion.div
+										className={`hidden md:block absolute top-8 ${
+											isLeft
+												? 'left-[calc(100%+1rem)]'
+												: 'right-[calc(100%+1rem)]'
+										} w-12 h-0.5 bg-linear-to-r ${
+											isLeft
+												? 'from-transparent to-cyan-500/50'
+												: 'from-cyan-500/50 to-transparent'
+										} z-10`}
+										initial={{ scaleX: 0 }}
+										whileInView={{ scaleX: 1 }}
+										viewport={{ once: true }}
+										transition={{ delay: 0.4, duration: 0.4 }}
+										style={{
+											originX: isLeft ? 1 : 0,
+										}}
+									/>
+									<style>{`
 									@media (min-width: 768px) {
 										[data-desktop-top="${topOffset}"][data-desktop-top] {
 											top: ${topOffset}px !important;
