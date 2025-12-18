@@ -1,5 +1,3 @@
-'use client';
-
 import { Link } from '@tanstack/react-router';
 import { AnimatePresence, motion } from 'framer-motion';
 import { FileDown, Github, Linkedin, Mail, Menu, X } from 'lucide-react';
