@@ -157,8 +157,16 @@ export default function Contact() {
 			>
 				<div className="flex flex-col md:flex-row items-center justify-between gap-6">
 					<p className="text-gray-400 dark:text-gray-400 light:text-gray-500 text-base">
-						© {new Date().getFullYear()} Nestor Zamili. Built with TanStack
-						Start.
+						© {new Date().getFullYear()} Nestor Zamili. Built with{' '}
+						<a
+							href="https://tanstack.com/start/latest"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="hover:text-cyan-400 dark:hover:text-cyan-400 light:hover:text-cyan-600 transition-colors underline decoration-dotted underline-offset-2"
+						>
+							TanStack Start
+						</a>
+						.
 					</p>
 					<div className="flex items-center gap-5">
 						{contactLinks.map((link) => {

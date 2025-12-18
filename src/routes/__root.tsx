@@ -1,7 +1,9 @@
+/** biome-ignore-all lint/security/noDangerouslySetInnerHtml: <seo optimization> */
 import { createRootRoute, HeadContent, Scripts } from '@tanstack/react-router';
 
 import Header from '../components/Header';
 import { ThemeProvider } from '../components/ThemeProvider';
+import { personSchema, seo, websiteSchema } from '../lib/seo';
 
 import appCss from '../styles.css?url';
 
@@ -16,15 +18,38 @@ export const Route = createRootRoute({
 				content: 'width=device-width, initial-scale=1',
 			},
 			{
-				title: 'Nestor Zamili | Software Engineer — Platform & Delivery',
+				title: seo.title,
 			},
 			{
 				name: 'description',
-				content:
-					'Technical portfolio of Nestor Zamili. Software Engineer focused on CI/CD, Kubernetes, Helm, and production operations.',
+				content: seo.description,
+			},
+			{
+				property: 'og:title',
+				content: seo.title,
+			},
+			{
+				property: 'og:description',
+				content: seo.description,
+			},
+			{
+				property: 'og:type',
+				content: 'website',
+			},
+			{
+				property: 'og:url',
+				content: seo.url,
+			},
+			{
+				property: 'og:image',
+				content: seo.image,
 			},
 		],
 		links: [
+			{
+				rel: 'canonical',
+				href: seo.url,
+			},
 			{
 				rel: 'icon',
 				type: 'image/png',
@@ -79,6 +104,14 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 		<html lang="en" className="dark scroll-smooth">
 			<head>
 				<HeadContent />
+				<script
+					type="application/ld+json"
+					dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+				/>
+				<script
+					type="application/ld+json"
+					dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+				/>
 			</head>
 			<body className="antialiased">
 				<ThemeProvider>
