@@ -1,4 +1,3 @@
-import { Link } from '@tanstack/react-router';
 import { AnimatePresence, motion } from 'framer-motion';
 import { FileDown, Github, Linkedin, Mail, Menu, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
@@ -92,10 +91,12 @@ export default function Header() {
 
 	const handleNavClick = (href: string) => {
 		setIsOpen(false);
-		const element = document.querySelector(href);
-		if (element) {
-			element.scrollIntoView({ behavior: 'smooth' });
-		}
+		setTimeout(() => {
+			const element = document.querySelector(href);
+			if (element) {
+				element.scrollIntoView({ behavior: 'smooth' });
+			}
+		}, 300);
 	};
 
 	const handleMouseEnter = () => {
@@ -137,17 +138,18 @@ export default function Header() {
 			>
 				<nav className="max-w-6xl mx-auto px-6 py-5">
 					<div className="flex items-center justify-between">
-						<motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-							<Link
-								to="/"
-								className="text-2xl font-bold flex items-center gap-1 text-white dark:text-white light:text-slate-900 hover:text-cyan-400 transition-colors"
-							>
-								<span>Nestor</span>
-								<span className="text-cyan-400 dark:text-cyan-400 light:text-cyan-600">
-									Zamili
-								</span>
-							</Link>
-						</motion.div>
+						<motion.button
+							type="button"
+							onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+							className="text-2xl font-bold flex items-center gap-1 text-white dark:text-white light:text-slate-900 hover:text-cyan-400 transition-colors cursor-pointer"
+							whileHover={{ scale: 1.05 }}
+							whileTap={{ scale: 0.95 }}
+						>
+							<span>Nestor</span>
+							<span className="text-cyan-400 dark:text-cyan-400 light:text-cyan-600">
+								Zamili
+							</span>
+						</motion.button>
 
 						<div className="hidden md:flex items-center gap-8">
 							{navLinks.map((link, index) => (

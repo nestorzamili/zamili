@@ -51,6 +51,11 @@ export const Route = createRootRoute({
 				href: seo.url,
 			},
 			{
+				rel: 'preload',
+				as: 'image',
+				href: '/profile.png',
+			},
+			{
 				rel: 'icon',
 				type: 'image/x-icon',
 				href: '/favicon.ico',
