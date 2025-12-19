@@ -65,11 +65,12 @@ export default function Hero() {
 							</Badge>
 						</motion.div>
 
-						<motion.div variants={itemVariants}>
-							<h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white dark:text-white light:text-slate-900 mb-6 leading-tight">
-								Nestor Zamili
-							</h1>
-						</motion.div>
+						<motion.h1
+							variants={itemVariants}
+							className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white dark:text-white light:text-slate-900 mb-6 leading-tight"
+						>
+							Nestor Zamili
+						</motion.h1>
 
 						<motion.div variants={itemVariants}>
 							<h2 className="text-xl sm:text-2xl md:text-3xl text-cyan-400 dark:text-cyan-400 light:text-cyan-600 font-medium mb-8">
