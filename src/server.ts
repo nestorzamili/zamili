@@ -1,11 +1,13 @@
 import handler, { createServerEntry } from '@tanstack/react-start/server-entry';
+import { getClientIp, logRequest } from './utils/logger';
 
 export default createServerEntry({
-	fetch(request) {
+	async fetch(request) {
 		const url = new URL(request.url);
+		const clientIp = getClientIp(request);
 
 		if (url.pathname === '/api/health' && request.method === 'GET') {
-			return new Response(
+			const response = new Response(
 				JSON.stringify({
 					status: 'ok',
 					timestamp: new Date().toISOString(),
@@ -18,8 +20,22 @@ export default createServerEntry({
 					},
 				},
 			);
+			logRequest({
+				method: request.method,
+				path: url.pathname,
+				status: response.status,
+				clientIp,
+			});
+			return response;
 		}
 
-		return handler.fetch(request);
+		const response = await handler.fetch(request);
+		logRequest({
+			method: request.method,
+			path: url.pathname,
+			status: response.status,
+			clientIp,
+		});
+		return response;
 	},
 });

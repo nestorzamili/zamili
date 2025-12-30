@@ -156,7 +156,7 @@ export default function Hero() {
 									alt="Nestor Zamili"
 									width={320}
 									height={320}
-									priority
+									priority={true}
 									fetchPriority="high"
 									className="relative w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full object-cover object-[50%_35%] sm:object-[50%_30%] md:object-[50%_25%] border-4 border-cyan-500/50 dark:border-cyan-500/50 light:border-cyan-400 shadow-2xl shadow-cyan-500/20 dark:shadow-cyan-500/20 light:shadow-cyan-200/50"
 								/>

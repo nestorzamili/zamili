@@ -1,5 +1,5 @@
 /** biome-ignore-all lint/security/noDangerouslySetInnerHtml: <seo optimization> */
-import { createRootRoute, HeadContent, Scripts } from '@tanstack/react-router';
+import { createRootRoute, HeadContent, Link, Scripts } from '@tanstack/react-router';
 
 import Header from '../components/Header';
 import { ThemeProvider } from '../components/ThemeProvider';
@@ -7,7 +7,25 @@ import { personSchema, seo, websiteSchema } from '../lib/seo';
 
 import appCss from '../styles.css?url';
 
+function NotFound() {
+	return (
+		<main className="flex min-h-[80vh] flex-col items-center justify-center px-4">
+			<h1 className="mb-4 text-8xl font-bold text-primary">404</h1>
+			<p className="mb-8 text-xl text-muted-foreground">
+				Halaman yang kamu cari tidak ditemukan
+			</p>
+			<Link
+				to="/"
+				className="rounded-lg bg-primary px-6 py-3 text-primary-foreground transition-opacity hover:opacity-90"
+			>
+				Kembali ke Beranda
+			</Link>
+		</main>
+	);
+}
+
 export const Route = createRootRoute({
+	notFoundComponent: NotFound,
 	head: () => ({
 		meta: [
 			{
@@ -59,6 +77,10 @@ export const Route = createRootRoute({
 				rel: 'icon',
 				type: 'image/x-icon',
 				href: '/favicon.ico',
+			},
+			{
+				rel: 'shortcut icon',
+				href: 'https://zamili.dev/favicon.ico',
 			},
 			{
 				rel: 'icon',
