@@ -2,6 +2,7 @@ interface LogInfo {
 	timestamp: string;
 	status: number;
 	clientIp: string;
+	country?: string;
 	method: string;
 	path: string;
 }
@@ -30,7 +31,13 @@ export function getClientIp(request: Request): string {
 	return 'unknown';
 }
 
+export function getClientCountry(request: Request): string | undefined {
+	return request.headers.get('CF-IPCountry') || undefined;
+}
+
 export function logRequest(info: Omit<LogInfo, 'timestamp'>): void {
-	const logLine = `${formatTimestamp()} | ${info.status} | ${info.clientIp} | ${info.method} ${info.path}`;
+	const countryPart = info.country ? ` (${info.country})` : '';
+	const logLine = `${formatTimestamp()} | ${info.status} | ${info.clientIp}${countryPart} | ${info.method} ${info.path}`;
 	console.log(logLine);
 }
+
