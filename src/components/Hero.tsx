@@ -152,7 +152,7 @@ export default function Hero() {
 								transition={{ duration: 0.3 }}
 							>
 								<Image
-									src="/profile.png"
+									src="/profile.jpeg"
 									alt="Nestor Zamili"
 									width={320}
 									height={320}

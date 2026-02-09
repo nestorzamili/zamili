@@ -1,5 +1,10 @@
 /** biome-ignore-all lint/security/noDangerouslySetInnerHtml: <seo optimization> */
-import { createRootRoute, HeadContent, Link, Scripts } from '@tanstack/react-router';
+import {
+	createRootRoute,
+	HeadContent,
+	Link,
+	Scripts,
+} from '@tanstack/react-router';
 
 import Header from '../components/Header';
 import { ThemeProvider } from '../components/ThemeProvider';
@@ -71,7 +76,7 @@ export const Route = createRootRoute({
 			{
 				rel: 'preload',
 				as: 'image',
-				href: '/profile.png',
+				href: '/profile.jpeg',
 			},
 			{
 				rel: 'icon',

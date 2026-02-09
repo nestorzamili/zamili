@@ -5,7 +5,7 @@ export const personSchema = {
 	name: 'Nestor Zamili',
 	jobTitle: 'Software Engineer — Platform & Delivery',
 	url: 'https://zamili.dev',
-	image: 'https://zamili.dev/profile.png',
+	image: 'https://zamili.dev/profile.jpeg',
 	sameAs: [
 		'https://github.com/nestorzamili',
 		'https://linkedin.com/in/nestor-zamili',
@@ -28,5 +28,5 @@ export const seo = {
 	description:
 		'Software Engineer specializing in CI/CD pipelines, Kubernetes operations, Helm-based deployments, and production troubleshooting.',
 	url: 'https://zamili.dev',
-	image: 'https://zamili.dev/profile.png',
+	image: 'https://zamili.dev/profile.jpeg',
 } as const;
