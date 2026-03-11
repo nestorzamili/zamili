@@ -1,7 +1,7 @@
 {
   "short_name": "Nestor Zamili",
-  "name": "Nestor Zamili | Software Engineer — Platform & Delivery",
-  "description": "Technical portfolio of Nestor Zamili. Software Engineer focused on CI/CD, Kubernetes, Helm, and production operations.",
+  "name": "Nestor Zamili | Software Engineer",
+  "description": "Portfolio of Nestor Zamili, a software engineer focused on platform delivery, Kubernetes operations, CI/CD pipelines, and production troubleshooting.",
   "icons": [
     {
       "src": "favicon.ico",
