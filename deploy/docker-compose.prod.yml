@@ -4,9 +4,9 @@ services:
     container_name: zamili
     restart: unless-stopped
     networks:
-      - caddy_network
-    ports:
-      - "127.0.0.1:3443:80"
+      - proxy
+    expose:
+      - "80"
     volumes:
       - /var/log/zamili:/var/log/nginx
     healthcheck:
@@ -14,7 +14,6 @@ services:
       interval: 15s
       timeout: 5s
       retries: 5
-
 networks:
-  caddy_network:
+  proxy:
     external: true
