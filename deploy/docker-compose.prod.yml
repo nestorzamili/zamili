@@ -1,0 +1,20 @@
+services:
+  zamili:
+    image: ${IMAGE_REF:?IMAGE_REF is required}
+    container_name: zamili
+    restart: unless-stopped
+    networks:
+      - caddy_network
+    ports:
+      - "127.0.0.1:3443:80"
+    volumes:
+      - /var/log/zamili:/var/log/nginx
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+networks:
+  caddy_network:
+    external: true

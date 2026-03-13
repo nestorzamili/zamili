@@ -6,6 +6,11 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/zamili
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 concurrency:
   group: zamili-cicd-${{ github.ref }}
   cancel-in-progress: false
@@ -14,41 +19,42 @@ jobs:
   build_and_push:
     name: Build and Push Image
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
     permissions:
       contents: read
       packages: write
+    outputs:
+      image_ref: ${{ steps.vars.outputs.image_ref }}
+      image_tag: ${{ steps.vars.outputs.image_tag }}
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+
+      - name: Derive image tag
+        id: vars
+        run: |
+          IMAGE_TAG="$(git rev-parse --short=7 "$GITHUB_SHA")"
+          echo "image_tag=$IMAGE_TAG" >> "$GITHUB_OUTPUT"
+          echo "image_ref=${IMAGE_NAME}:$IMAGE_TAG" >> "$GITHUB_OUTPUT"
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v3.12.0
 
       - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@v3.6.0
         with:
-          registry: ghcr.io
+          registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ghcr.io/${{ github.repository_owner }}/zamili
-          tags: |
-            type=raw,value=latest
-            type=sha,format=short,prefix=sha-
-
       - name: Build and push
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v6.18.0
         with:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ steps.vars.outputs.image_ref }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -57,50 +63,17 @@ jobs:
     runs-on: ubuntu-latest
     needs: build_and_push
     if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
       - name: Deploy stack on VM
-        uses: appleboy/ssh-action@v1.2.0
         env:
-          IMAGE: ghcr.io/${{ github.repository_owner }}/zamili:latest
-        with:
-          host: ${{ secrets.VM_HOST }}
-          username: ${{ secrets.VM_USER }}
-          key: ${{ secrets.VM_SSH_KEY }}
-          port: ${{ secrets.VM_SSH_PORT }}
-          envs: IMAGE
-          script: |
-            set -eu
-
-            APP_DIR="/opt/zamili"
-            STACK_FILE="$APP_DIR/docker-compose.yml"
-
-            mkdir -p "$APP_DIR"
-
-            cat > "$STACK_FILE" <<'YAML'
-            services:
-              zamili:
-                image: ${IMAGE}
-                container_name: zamili
-                restart: unless-stopped
-
-                networks:
-                  - caddy_network
-
-                ports:
-                  - "127.0.0.1:3443:80"
-
-                healthcheck:
-                  test: ["CMD", "wget", "-qO-", "http://127.0.0.1:80/health"]
-                  interval: 15s
-                  timeout: 5s
-                  retries: 5
-
-            networks:
-              caddy_network:
-                external: true
-            YAML
-
-            cd "$APP_DIR"
-            docker compose pull
-            docker compose up -d --remove-orphans
+          IMAGE_REF: ${{ needs.build_and_push.outputs.image_ref }}
+          VM_SSH_TARGET: ${{ secrets.VM_SSH_TARGET }}
+          VM_SSH_KEY: ${{ secrets.VM_SSH_KEY }}
+          VM_SSH_KNOWN_HOSTS: ${{ secrets.VM_SSH_KNOWN_HOSTS }}
+        run: bash deploy/deploy-prod.sh
