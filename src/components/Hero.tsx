@@ -43,7 +43,7 @@ const socialLinks = [
 		icon: Linkedin,
 		label: 'LinkedIn',
 	},
-	{ href: 'mailto:nestorzamili@gmail.com', icon: Mail, label: 'Email' },
+	{ href: 'mailto:nestor@zamili.dev', icon: Mail, label: 'Email' },
 ];
 
 export default function Hero() {

@@ -18,7 +18,7 @@ const socialLinks = [
 		icon: Linkedin,
 		label: 'LinkedIn',
 	},
-	{ href: 'mailto:nestorzamili@gmail.com', icon: Mail, label: 'Email' },
+	{ href: 'mailto:nestor@zamili.dev', icon: Mail, label: 'Email' },
 ];
 
 export default function Header() {
@@ -31,12 +31,33 @@ export default function Header() {
 	const scrollTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
 	useEffect(() => {
-		const handleScroll = () => {
+		const syncHeaderState = () => {
 			const currentScrollY = window.scrollY;
 			const heroHeight = window.innerHeight;
 			const isInHero = currentScrollY < heroHeight - 100;
+			const doc = document.documentElement;
+			const scrollTop = doc.scrollTop || document.body.scrollTop;
+			const scrollHeight = doc.scrollHeight - doc.clientHeight;
+			const pct =
+				scrollHeight > 0
+					? Math.min(100, Math.max(0, (scrollTop / scrollHeight) * 100))
+					: 0;
+			const sections = navLinks.map((l) => l.href);
+			let current: string | null = null;
+
+			for (const href of sections) {
+				const el = document.querySelector(href) as HTMLElement | null;
+				if (!el) continue;
+				const rect = el.getBoundingClientRect();
+				if (rect.top <= 120 && rect.bottom > 120) {
+					current = href;
+					break;
+				}
+			}
 
 			setIsHeroSection(isInHero);
+			setProgress(pct);
+			setActiveHash(current);
 
 			if (isInHero) {
 				setVisible(true);
@@ -56,33 +77,15 @@ export default function Header() {
 			}, 1500);
 
 			lastScrollY.current = currentScrollY;
-
-			const doc = document.documentElement;
-			const scrollTop = doc.scrollTop || document.body.scrollTop;
-			const scrollHeight = doc.scrollHeight - doc.clientHeight;
-			const pct =
-				scrollHeight > 0
-					? Math.min(100, Math.max(0, (scrollTop / scrollHeight) * 100))
-					: 0;
-			setProgress(pct);
-
-			const sections = navLinks.map((l) => l.href);
-			let current: string | null = null;
-			for (const href of sections) {
-				const el = document.querySelector(href) as HTMLElement | null;
-				if (!el) continue;
-				const rect = el.getBoundingClientRect();
-				if (rect.top <= 120 && rect.bottom > 120) {
-					current = href;
-					break;
-				}
-			}
-			setActiveHash(current);
 		};
 
-		window.addEventListener('scroll', handleScroll, { passive: true });
+		window.addEventListener('scroll', syncHeaderState, { passive: true });
+		window.addEventListener('hashchange', syncHeaderState);
+		syncHeaderState();
+
 		return () => {
-			window.removeEventListener('scroll', handleScroll);
+			window.removeEventListener('scroll', syncHeaderState);
+			window.removeEventListener('hashchange', syncHeaderState);
 			if (scrollTimeout.current) {
 				clearTimeout(scrollTimeout.current);
 			}
