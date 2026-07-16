@@ -78,8 +78,10 @@ ssh "${SSH_OPTS[@]}" "$SSH_TARGET" \
 set -euo pipefail
 
 cd "$DEPLOY_PATH"
+
+IMAGE_REF="$IMAGE_REF" docker pull --platform linux/arm64 "$IMAGE_REF"
+IMAGE_REF="$IMAGE_REF" docker compose pull --policy always
 IMAGE_REF="$IMAGE_REF" docker compose config -q
-IMAGE_REF="$IMAGE_REF" docker compose pull
 IMAGE_REF="$IMAGE_REF" docker compose up -d --remove-orphans
 
 attempt=0
