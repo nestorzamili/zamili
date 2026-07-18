@@ -17,7 +17,7 @@ concurrency:
 jobs:
   deploy:
     name: Build and Deploy
-    uses: nestorzamili/gha-workflows/.github/workflows/deploy-container.yml@v1.4.0
+    uses: nestorzamili/gha-workflows/.github/workflows/deploy-container.yml@v1.5.0
     with:
       image-name: zamili
       container-name: zamili
