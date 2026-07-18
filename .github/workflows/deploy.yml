@@ -1,0 +1,28 @@
+name: Deploy Zamili
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: zamili-deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Build and Deploy
+    uses: nestorzamili/gha-workflows/.github/workflows/deploy-container.yml@v1.4.0
+    with:
+      image-name: zamili
+      container-name: zamili
+      volume: /var/log/zamili:/var/log/nginx
+      health-cmd: "wget -qO- http://127.0.0.1/health || exit 1"
+      docker-context-name: zamili-vm
+      environment: production
+    secrets: inherit
