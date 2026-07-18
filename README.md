@@ -1,15 +1,8 @@
 # Zamili
 
-Personal portfolio website built as a static React app and served with nginx.
+Personal portfolio (React + Vite, nginx).
 
-## Tech Stack
-
-- **Framework**: React 19 + Vite
-- **Styling**: Tailwind CSS v4
-- **Animations**: Framer Motion
-- **Runtime**: nginx (static assets)
-
-## Development
+## Local Development
 
 ```bash
 pnpm install
@@ -22,12 +15,14 @@ pnpm dev
 pnpm build
 ```
 
-## Docker
+## CI/CD
 
-```bash
-docker build -t zamili .
-docker run -p 8080:80 zamili
-```
+- PR → [`.github/workflows/ci.yml`](.github/workflows/ci.yml)
+- main → [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) via [gha-workflows](https://github.com/nestorzamili/gha-workflows)
+
+Environment `production` secrets: `SSH_CONFIG` only.
+
+VM (sekali): Docker, network `proxy`, Caddy, `/var/log/zamili` for nginx logs.
 
 ## License
 
